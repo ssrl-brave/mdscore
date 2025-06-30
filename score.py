@@ -23,11 +23,8 @@ def score(test):
         os.system("wget https://smb.slac.stanford.edu/~dermen/answer.npy -O .answer.npy")
 
     answer = pandas.DataFrame(np.load(".answer.npy", allow_pickle=True)[()], columns=["alias", "bound"])
-    os.remove(".answer.npy")
     
     m = pandas.merge(test, answer, on="alias", how='inner')
-    bound = m.bound.values.astype(bool)
-    ids = m.bound.values.astype(bool)
 
     print("\nAssuming id=0 means bound:")
     print(pandas.crosstab(m.bound, ~m.ids, colnames=("groundTruth",), rownames=("Prediction",)) )
@@ -35,9 +32,9 @@ def score(test):
     print("\nAssuming id=1 means bound:")
     print(pandas.crosstab(m.bound, m.ids, colnames=("groundTruth",), rownames=("Prediction",)) )
 
-    acc0 = (m.ids==~m.bound).sum() / len(m) * 100
+    acc0 = (~m.ids==m.bound).sum() / len(m) * 100
     acc1 = (m.ids==m.bound).sum() / len(m) * 100
-    print(f"\n{args.test} is {acc0:.1f}% accurate if 0 is bound and {acc1:.1f}% accurate if 1 is bound!")
+    print(f"\nThe results are {acc0:.1f}% accurate if 0 is bound and {acc1:.1f}% accurate if 1 is bound!")
     return m
 
 
