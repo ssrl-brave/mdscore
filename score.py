@@ -2,40 +2,52 @@ import pandas
 import numpy as np
 import os
 
+from sklearn.metrics import precision_score, recall_score, f1_score
 
-def score(test):
+def score(test, bound_label=0):
     """
     Parameters: `test` is a pandas DataFrame with ids col and alias col, 
     Returns: pd.DataFrame of answers with predictions
     """
-    if "ids" in test:
-        if not set(test.ids).issubset({0,1,False,True}):
-            raise ValueError ("`ids` col must contain only 0,1 or True,False")
-        test.ids = test.ids.astype(bool)
-    else:
-        raise KeyError( "test must contain `ids` col")
-
-    if "alias" not in test:
-        raise KeyError( "test must contain `alias` col")
+    assert "ids" in test
+    assert "alias" in test
 
     # download the answers then delete
     if not os.path.exists(".answer.npy"):
         os.system("wget https://smb.slac.stanford.edu/~dermen/answer.npy -O .answer.npy")
 
     answer = pandas.DataFrame(np.load(".answer.npy", allow_pickle=True)[()], columns=["alias", "bound"])
+    answer.bound = answer.bound.astype(bool)
     
     m = pandas.merge(test, answer, on="alias", how='inner')
+    
+    actual_bound = m.bound
+    pred_bound = m["ids"]==bound_label
+    
+    p = precision_score(actual_bound, pred_bound)
+    r = recall_score(actual_bound, pred_bound)
+    f = f1_score(actual_bound, pred_bound)
 
-    print("\nAssuming id=0 means bound:")
-    print(pandas.crosstab(m.bound, ~m.ids, colnames=("groundTruth",), rownames=("Prediction",)) )
+    actual_neg = np.logical_not(actual_bound)
+    pred_neg = np.logical_not(pred_bound)
 
-    print("\nAssuming id=1 means bound:")
-    print(pandas.crosstab(m.bound, m.ids, colnames=("groundTruth",), rownames=("Prediction",)) )
+    TP = (pred_bound * actual_bound).sum()
+    FP = (pred_bound * actual_neg).sum()
+    assert p== TP / (FP + TP)
 
-    acc0 = (~m.ids==m.bound).sum() / len(m) * 100
-    acc1 = (m.ids==m.bound).sum() / len(m) * 100
-    print(f"\nThe results are {acc0:.1f}% accurate if 0 is bound and {acc1:.1f}% accurate if 1 is bound!")
-    return m
+    FN = (pred_neg * actual_bound).sum()
+    assert r==TP / (FN + TP)
+    TN = (pred_neg * actual_neg).sum()
+
+    assert f==2*(p*r)/(p+r)
+    print(f"\nAssuming id={bound_label} means bound:")
+    print(f"precision: {p}")
+    print(f"recall: {r}")
+    print(f"F1-score: {f}")
+    print(f"TP={TP}, FP={FP}, FN={FN}, TN={TN}")
+    results = {"precision":p, "recall": r, "F1": f}
+
+    return m, results
 
 
 if __name__=="__main__":
