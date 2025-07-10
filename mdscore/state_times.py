@@ -18,14 +18,16 @@ def get_states(clust_ids, dt=5):
   return states
 
 
-def get_state_t(fname):
+def get_state_t(fname,):
     #lab = np.load("cluster_labels_457x15000.npy")
     lab = np.load(fname)
+    n = lab.shape[1]//3
+    assert lab.shape[1] % 3 == 0
     all_state_times = {}
     # i is the system index
     for i in range(lab.shape[0]):
         states = []
-        for L in (lab[i,:5000], lab[i,5000:10000], lab[i,-5000:]):
+        for L in (lab[i,:n], lab[i,n:2*n], lab[i,-n:]):
             states_L = get_states(L, dt=5) # check if it comes back within 5 frames
             states += states_L
         

@@ -38,10 +38,10 @@ def prc(actual_bound, pred_bound):
 
     TP = (pred_bound * actual_bound).sum()
     FP = (pred_bound * actual_neg).sum()
-    assert p== TP / (FP + TP)
+    assert np.allclose(p, TP / (FP + TP))
 
     FN = (pred_neg * actual_bound).sum()
-    assert r==TP / (FN + TP)
+    assert np.allclose(r,TP / (FN + TP))
     TN = (pred_neg * actual_neg).sum()
 
     assert np.allclose(f,2*(p*r)/(p+r))
