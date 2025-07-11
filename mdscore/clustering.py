@@ -12,7 +12,7 @@ import pandas
 
 results = {}
 for dset_name in ("ucsf", "zinc"):
-    df = pandas.read_csv(f"/Users/dermen/ensemble/{dset_name}_boltz.tsv", sep="\t")
+    df = pandas.read_csv(f"{dset_name}_boltz.tsv", sep="\t")
     rdk_col = df.loc[:, "MaxAbsEStateIndex":"fr_urea"].columns.tolist()
 
     res_cols = [c for c in df if c.startswith("resid_")]

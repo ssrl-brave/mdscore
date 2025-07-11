@@ -6,7 +6,7 @@ COMM = MPI.COMM_WORLD
 
 results = {}
 for dset_name in ("zinc", "ucsf"):
-    df = pandas.read_csv(f"/Users/dermen/ensemble/{dset_name}_boltz.tsv", sep="\t")
+    df = pandas.read_csv(f"{dset_name}_boltz.tsv", sep="\t")
     rdk_col = df.loc[:, "MaxAbsEStateIndex":"fr_urea"].columns.tolist()
     res_cols = [c for c in df if c.startswith("resid_")]
     md_col = list(df)[1:18] + res_cols + ["max_state_t"]

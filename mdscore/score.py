@@ -28,8 +28,10 @@ def score(test, bound_label=0):
     return m, results
 
 
-def prc(actual_bound, pred_bound):
-    p = precision_score(actual_bound, pred_bound)
+def prc(actual_bound, pred_bound, verbose=True):
+
+    p = precision_score(actual_bound, pred_bound, zero_division=0)
+
     r = recall_score(actual_bound, pred_bound)
     f = f1_score(actual_bound, pred_bound)
 
@@ -38,17 +40,21 @@ def prc(actual_bound, pred_bound):
 
     TP = (pred_bound * actual_bound).sum()
     FP = (pred_bound * actual_neg).sum()
-    assert np.allclose(p, TP / (FP + TP))
+    if p > 0:
+        assert np.allclose(p, TP / (FP + TP))
 
     FN = (pred_neg * actual_bound).sum()
-    assert np.allclose(r,TP / (FN + TP))
+    if r > 0:
+        assert np.allclose(r,TP / (FN + TP))
     TN = (pred_neg * actual_neg).sum()
 
-    assert np.allclose(f,2*(p*r)/(p+r))
-    print(f"precision: {p}")
-    print(f"recall: {r}")
-    print(f"F1-score: {f}")
-    print(f"TP={TP}, FP={FP}, FN={FN}, TN={TN}")
+    if f != 0:
+        assert np.allclose(f,2*(p*r)/(p+r))
+    if verbose:
+        print(f"precision: {p}")
+        print(f"recall: {r}")
+        print(f"F1-score: {f}")
+        print(f"TP={TP}, FP={FP}, FN={FN}, TN={TN}")
     results = {"precision":p, "recall": r, "F1": f}
 
     return results
