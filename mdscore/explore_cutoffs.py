@@ -49,4 +49,8 @@ for dset_name in results:
 
 if COMM.rank==0:
     np.save("final_results", final_results)
+    for dset_name in final_results:
+        print(dset_name)
+        print(sorted(final_results[dset_name])[::-1][:30])
+    print()
 
