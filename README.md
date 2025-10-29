@@ -69,7 +69,7 @@ Step2. Post processing of the trajectory and featurization:
 
 Once the MD simulations are done, we perform a series of analysis---
 
-a. ```cpptraj -i ../../script_25/cpptraj_strip.in``` run it under ```trial_*_boltz``` directory to generate the dry docked complex that is used as the reference structure. 
+a. ```cpptraj -i ../../script_25/cpptraj_strip.in``` run it under the base system directory to generate the dry docked complex that is used as the reference structure. 
 
 b. ```cpptraj -i ../../script_25/cpptraj_strip_2.in``` run it under ```trial_*_boltz``` directory to strip off waters and ions from the generated trajectory and parameter. This gives us dry trajectory ```protein.nc``` and parameter ```protein.top```.
 
