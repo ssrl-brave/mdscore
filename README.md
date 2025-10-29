@@ -1,11 +1,19 @@
 # HTP-MD-ML
 Code and instructions for running HTP MD and predict fragment binding. 
-As for example, we have here ```Mpro-x0040_iso1``` system under ```mpro_from_boltz``` directory. As for the initial input files, we have boltz generated docked liganded pose ```Mpro-x0040_iso1_model_0_ligand_aligned.pdb``` and receptor ```Mpro-x0040_iso1_model_0_protein.pdb```. 
+As for example, we have here ```Mpro-x0040_iso1``` system under ```mpro_from_boltz``` directory. As for the initial input files, we have boltz generated docked liganded pose as a cif file ```Mpro-x0040_iso1_model_0.cif```. 
+
+Step0. Preprocess boltz output:
+------------------------------
+We first need to convert cif to a pdb file using ```python cif_to_pdb.py```. This will generate ```boltz_modeled.pdb```. We can then seperate the receptor and the ligand as
+```grep "LIG" boltz_modeled.pdb> Mpro-x0040_iso1_model_0_ligand.pdb```
+```grep "ATOM" boltz_modeled.pdb> Mpro-x0040_iso1_model_0_protein.pdb```
+
+We need to further process the ligand file to make it suitable for openbabel to add Hs. For this we use the smile string as ```out.smi``` file and pass it through rdkit along with the pdb format to generate a suitable pdb for openbabel. We run ``` python ../rdkit_template.py``` to generate ```Mpro-x0040_iso1_model_0_ligand_aligned.pdb``` . 
 
 Step1. Preprocess, parametrize, and submit MD simulations:
 ---------------------------------------------------------
-We first need to add H to the ligands and do a few required formating. We combined all these steps in ```preprocess.sh```. We can simply execute ```bash preprocess.sh``` to generate ```boltz_lig_mod.pdb``` which has a required format for the next steps. 
-The next step is to parametrize the ligand and submit MD simulation. This can be performed by executing ```bash generate_inputs_and_submit.sh```. The steps are 
+We first need to add H to the ligands and do a few required formating. We combined all these steps in ```preprocess.sh```. We can simply execute ```bash ../preprocess.sh``` to generate ```boltz_lig_mod.pdb``` which has a required format for the next steps. 
+The next step is to parametrize the ligand and submit MD simulation. This can be performed by executing ```bash ../generate_inputs_and_submit.sh```. The steps are 
 ```
 antechamber -i boltz_lig_mod.pdb -fi pdb -o ligand.mol2 -fo mol2 -c bcc -s 2 -at gaff2 -nc 0
 parmchk2 -i ligand.mol2 -f mol2 -o ligand.frcmod
