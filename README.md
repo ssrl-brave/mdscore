@@ -55,7 +55,9 @@ Step2. Post processing of the trajectory and featurization:
 
 Once the MD simulations are done, we perform a series of analysis---
 a. ```cpptraj -i ../../script_25/cpptraj_strip.in``` run it under ```trial_*_boltz``` directory to generate the dry docked complex that is used as the reference structure. 
+
 b. ```cpptraj -i ../../script_25/cpptraj_strip_2.in``` run it under ```trial_*_boltz``` directory to strip off waters and ions from the generated trajectory and parameter. This gives us dry trajectory ```protein.nc``` and parameter ```protein.top```.
+
 c. ```cpptraj -i ../../script_25/cpptraj_rmsd.in``` run it under ```trial_*_boltz``` directory to calcualte ligand and protein rmsd of the trajectory taking the docked structure as reference. 
 d. ```cpptraj -i ../../script_25/cpptraj_rmsf.in``` run it under ```trial_*_boltz``` directory to calcualte ligand rmsf over the trajectory. 
 e. ```sbatch -i ../../script_25/clustering_ind.sh``` run it under base system directory to cluster the ligand poses based on their binding similarity. Once, clustering is done, this script also calculate RMSD of the top 5 cluster centers and perform MMGBSA energy calculation on the top cluster. 
