@@ -54,21 +54,31 @@ Step2. Post processing of the trajectory and featurization:
 ----------------------------------------------------------
 
 Once the MD simulations are done, we perform a series of analysis---
+
 a. ```cpptraj -i ../../script_25/cpptraj_strip.in``` run it under ```trial_*_boltz``` directory to generate the dry docked complex that is used as the reference structure. 
 
 b. ```cpptraj -i ../../script_25/cpptraj_strip_2.in``` run it under ```trial_*_boltz``` directory to strip off waters and ions from the generated trajectory and parameter. This gives us dry trajectory ```protein.nc``` and parameter ```protein.top```.
 
 c. ```cpptraj -i ../../script_25/cpptraj_rmsd.in``` run it under ```trial_*_boltz``` directory to calcualte ligand and protein rmsd of the trajectory taking the docked structure as reference. 
+
 d. ```cpptraj -i ../../script_25/cpptraj_rmsf.in``` run it under ```trial_*_boltz``` directory to calcualte ligand rmsf over the trajectory. 
+
 e. ```sbatch -i ../../script_25/clustering_ind.sh``` run it under base system directory to cluster the ligand poses based on their binding similarity. Once, clustering is done, this script also calculate RMSD of the top 5 cluster centers and perform MMGBSA energy calculation on the top cluster. 
+
 f. ```cpptraj -i ../../script_25/get_water.in``` run it under ```trial_*_boltz``` directory this uses solvated trajectory to calculate number of water molecule in the active site during the simulation.
+
 g. ```python ../../analysis/get_Hbond.py``` run it under ```clustering_boltz``` directory to estimate number of H bonds between ligand and receptor in top representative structure from MD.
+
 h. ```python ../../analysis/get_distance.py``` run it under ```clustering_boltz``` directory to estimate minumum average distance between the center of mass of ligand and key anchoring residues of receptor in the top representative structure from MD.
+
 i. ```python ../../analysis/get_distance_boltz.py``` run it under base system directory to estimate the same distances for the docked structure. 
+
 j. ```python ../../analysis/get_energies.py``` run it outside the base system directies to grab the MMGBSA energy values. 
+
 k. ```python ../../analysis/get_affinity.py``` run in the base system directories to grab the affinity predicted by boltz docking. 
 
 and finally,
+
 l. ```python ../../analysis/get_all_feature_for_ML_boltz.py``` run it outside the base system directies to combine all these values and write a csv file. 
 
 Step3. ML models:
