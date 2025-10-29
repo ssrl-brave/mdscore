@@ -18,8 +18,8 @@ We need to further process the ligand file to make it suitable for openbabel to 
 
 Step1. Preprocess, parametrize, and submit MD simulations:
 ---------------------------------------------------------
-We first need to add H to the ligands and do a few required formating. We combined all these steps in ```preprocess.sh```. We can simply execute ```bash ../preprocess.sh``` to generate ```boltz_lig_mod.pdb``` which has a required format for the next steps. 
-The next step is to parametrize the ligand and submit MD simulation. This can be performed by executing ```bash ../generate_inputs_and_submit.sh```. The steps are 
+We first need to add H to the ligands and do a few required formating. We combined all these steps in ```preprocess.sh```. We can simply execute outside the system directory ```bash ../preprocess.sh``` to generate ```boltz_lig_mod.pdb``` which has a required format for the next steps. 
+The next step is to parametrize the ligand and submit MD simulation. This can be performed by executing ```bash ../generate_inputs_and_submit.sh``` under each system directory. The steps are 
 ```
 antechamber -i boltz_lig_mod.pdb -fi pdb -o ligand.mol2 -fo mol2 -c bcc -s 2 -at gaff2 -nc 0
 parmchk2 -i ligand.mol2 -f mol2 -o ligand.frcmod
