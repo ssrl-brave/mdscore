@@ -4,7 +4,7 @@ As for example, we have here ```Mpro-x0040_iso1``` system under ```mpro_from_bol
 
 Prerequisite:
 ------------
-Install AMBER full package. Then setup amber environment. Then create a conda env and install packages like mdtraj and gemmi- and activate the env. 
+Install AMBER full package. Then setup amber environment. Then create a conda env and install packages like mdtraj, gemmi, and rdkit- and activate the env. 
 
 Step0. Preprocess boltz output:
 ------------------------------
