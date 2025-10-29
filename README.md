@@ -2,6 +2,10 @@
 Code and instructions for running HTP MD and predict fragment binding. 
 As for example, we have here ```Mpro-x0040_iso1``` system under ```mpro_from_boltz``` directory. As for the initial input files, we have boltz generated docked liganded pose as a cif file ```Mpro-x0040_iso1_model_0.cif```. 
 
+Prerequisite:
+------------
+Install AMBER full package. Then setup amber environment. Then create a conda env and install packages like mdtraj and gemmi- and activate the env. 
+
 Step0. Preprocess boltz output:
 ------------------------------
 We first need to convert cif to a pdb file using ```python ../../cif_pdb_gemmi.py```. This will generate ```boltz_modeled.pdb```. We can then seperate the receptor and the ligand as
