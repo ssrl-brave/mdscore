@@ -4,7 +4,7 @@ As for example, we have here ```Mpro-x0040_iso1``` system under ```mpro_from_bol
 
 Step0. Preprocess boltz output:
 ------------------------------
-We first need to convert cif to a pdb file using ```python ../../cif_to_pdb.py```. This will generate ```boltz_modeled.pdb```. We can then seperate the receptor and the ligand as
+We first need to convert cif to a pdb file using ```python ../../cif_pdb_gemmi.py```. This will generate ```boltz_modeled.pdb```. We can then seperate the receptor and the ligand as
 
 ```grep "LIG" boltz_modeled.pdb> Mpro-x0040_iso1_model_0_ligand.pdb```
 
