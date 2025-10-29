@@ -4,13 +4,13 @@ As for example, we have here ```Mpro-x0040_iso1``` system under ```mpro_from_bol
 
 Step0. Preprocess boltz output:
 ------------------------------
-We first need to convert cif to a pdb file using ```python cif_to_pdb.py```. This will generate ```boltz_modeled.pdb```. We can then seperate the receptor and the ligand as
+We first need to convert cif to a pdb file using ```python ../../cif_to_pdb.py```. This will generate ```boltz_modeled.pdb```. We can then seperate the receptor and the ligand as
 
 ```grep "LIG" boltz_modeled.pdb> Mpro-x0040_iso1_model_0_ligand.pdb```
 
 ```grep "ATOM" boltz_modeled.pdb> Mpro-x0040_iso1_model_0_protein.pdb```
 
-We need to further process the ligand file to make it suitable for openbabel to add Hs. For this we use the smile string as ```out.smi``` file and pass it through rdkit along with the pdb format to generate a suitable pdb for openbabel. We run ``` python ../rdkit_template.py``` to generate ```Mpro-x0040_iso1_model_0_ligand_aligned.pdb``` . 
+We need to further process the ligand file to make it suitable for openbabel to add Hs. For this we use the smile string as ```out.smi``` file and pass it through rdkit along with the pdb format to generate a suitable pdb for openbabel. We run ``` python ../../rdkit_template.py``` to generate ```Mpro-x0040_iso1_model_0_ligand_aligned.pdb``` . 
 
 Step1. Preprocess, parametrize, and submit MD simulations:
 ---------------------------------------------------------
