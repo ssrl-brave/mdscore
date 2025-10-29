@@ -43,7 +43,7 @@ cp trial_1_boltz/system_hmass.top mmgbsa_0_boltz
 cd mmgbsa_0_boltz
 
 ante-MMPBSA.py -p system_hmass.top -m :1-304 -s :WAT,Na+,Cl- -c com.prmtop -r rec.prmtop -l ligand.prmtop --radii mbondi3
-
-python /projects/robustmicrob/jlaw/tools/amber24/bin/MMPBSA.py -O -i /scratch/amondal2/brave/mmpbsa.in -o FINAL_RESULTS_MMPBSA.dat -cp com.prmtop -rp rec.prmtop -lp ligand.prmtop -y ../Clustering_boltz/clusttraj.c0
+#change the executable path
+python /projects/robustmicrob/jlaw/tools/amber24/bin/MMPBSA.py -O -i ../../script_25/mmpbsa.in -o FINAL_RESULTS_MMPBSA.dat -cp com.prmtop -rp rec.prmtop -lp ligand.prmtop -y ../Clustering_boltz/clusttraj.c0
 
 cd ../
