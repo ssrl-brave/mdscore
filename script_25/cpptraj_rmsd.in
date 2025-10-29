@@ -1,0 +1,8 @@
+parm protein.top
+trajin protein.nc 1 5000
+parm ../docked_leap_boltz.pdb
+reference ../docked_leap_boltz.pdb parm ../docked_leap_boltz.pdb
+rms reference :1-304@CA,C,N :1-167@CA,C,N out protein_rmsd_boltz.out
+rms reference :305 :305 out lig_rmsd_boltz.out nofit
+go
+quit

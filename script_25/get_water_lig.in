@@ -1,0 +1,7 @@
+parm trial_1_boltz/system_hmass.top
+trajin trial_1_boltz/md.nc 1 5000
+trajin trial_2_boltz/md.nc 1 5000
+trajin trial_3_boltz/md.nc 1 5000
+watershell :305 out water_3_boltz_lig.dat lower 3
+go
+quit

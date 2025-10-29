@@ -1,0 +1,8 @@
+parm trial_1_boltz/protein.top
+trajin Clustering_boltz/unique.c0.pdb
+parm docked_leap_boltz.pdb
+reference docked_leap_boltz.pdb parm docked_leap_boltz.pdb
+rms reference :1-304@CA,C,N :1-304@CA,C,N out protein_rmsd_top5_boltz.out
+rms reference :305 :305 out lig_rmsd_top5_boltz.out nofit
+go
+quit

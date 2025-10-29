@@ -1,0 +1,17 @@
+parm complex_solvated.prmtop
+trajin md.nc
+autoimage anchor :1-304@CA
+strip :WAT # This strips water molecules
+strip :Na+ # This strips sodium ions, add similar lines for other ions
+strip :Cl-
+trajout protein.nc
+go
+
+clear all
+parm complex_solvated.prmtop
+parmstrip :WAT # This strips water molecules
+parmstrip :Na+ # This strips sodium ions, add similar lines for other ions
+parmstrip :Cl-
+parmwrite out protein.top
+go
+quit

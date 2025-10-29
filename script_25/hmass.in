@@ -1,0 +1,3 @@
+parm complex_solvated.prmtop
+hmassrepartition
+outparm system_hmass.top

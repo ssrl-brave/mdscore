@@ -1,0 +1,9 @@
+parm complex_solvated.prmtop
+trajin complex_solvated.pdb
+autoimage anchor :1-304@CA
+strip :WAT # This strips water molecules
+strip :Na+ # This strips sodium ions, add similar lines for other ions
+strip :Cl-
+trajout docked_leap_boltz.pdb
+go
+quit

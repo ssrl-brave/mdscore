@@ -1,0 +1,12 @@
+polyA-polyT 10-mer: initial minimization solvent + ions
+ &cntrl
+  imin   = 1,
+  maxcyc = 4000,
+  ncyc   = 2000,
+  ntb    = 1,
+  ntr    = 1,
+  cut    = 10.0
+  restraintmask= '!(@H=) &!(:WAT| :ETH| @Na+=)',
+  restraint_wt=10,
+ /
+

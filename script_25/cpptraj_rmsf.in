@@ -1,0 +1,6 @@
+parm protein.top
+trajin protein.nc
+rms first :305
+atomicfluct :305 out rmsf_boltz.out 
+go
+quit
