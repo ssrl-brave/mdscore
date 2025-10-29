@@ -79,7 +79,7 @@ d. ```cpptraj -i ../../script_25/cpptraj_rmsf.in``` run it under ```trial_*_bolt
 
 e. ```sbatch -i ../../script_25/clustering_ind.sh``` run it under base system directory to cluster the ligand poses based on their binding similarity. Once, clustering is done, this script also calculate RMSD of the top 5 cluster centers and perform MMGBSA energy calculation on the top cluster. 
 
-f. ```cpptraj -i ../../script_25/get_water.in``` run it under ```trial_*_boltz``` directory this uses solvated trajectory to calculate number of water molecule in the active site during the simulation.
+f. ```cpptraj -i ../../script_25/get_water.in``` run it under base system directory. this uses solvated trajectory to calculate number of water molecule in the active site during the simulation.
 
 g. ```python ../../analysis/get_Hbond.py``` run it under ```clustering_boltz``` directory to estimate number of H bonds between ligand and receptor in top representative structure from MD.
 
