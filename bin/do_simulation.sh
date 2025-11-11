@@ -4,8 +4,8 @@
 # input Ligand and receptor
 LIG=$(realpath $1)
 PROT=$(realpath $2)
-# number or character labeling this trial 
-trial=$3
+# resired output  rootdir
+trialdir=$3
 # temp of the simulation
 TEMP_K=298.5
 # duration of the simulation
@@ -16,7 +16,6 @@ pref=mdout
 # input Ligand and receptor
 
 # make a trial dir and move there
-trialdir=trial${trial}
 mkdir -p $trialdir
 trialdir=$(realpath $trialdir)
 cd $trialdir
