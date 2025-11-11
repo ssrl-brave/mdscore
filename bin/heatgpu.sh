@@ -2,7 +2,7 @@
 
 TLEAPDIR=$1
 MINDIR=$2
-TEMP=298.5
+TEMP=$3
 
 cat > mdt.in << EOF
 1ns of thermalization

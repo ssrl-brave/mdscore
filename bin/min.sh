@@ -16,9 +16,7 @@ cat > min1.in << EOF
 /
 EOF
 
-
-pmemd -O -i min1.in -o min1.out -p ${TLEAPDIR}/complex_solvated.prmtop -c ${TLEAPDIR}/complex_solvated.inpcrd -r min1.rst -inf min1.mdinfo -ref ${TLEAPDIR}/complex_solvated.inpcrd
-
+pmemd.cuda -O -i min1.in -o min1.out -p ${TLEAPDIR}/complex_solvated.prmtop -c ${TLEAPDIR}/complex_solvated.inpcrd -r min1.rst -inf min1.mdinfo -ref ${TLEAPDIR}/complex_solvated.inpcrd
 
 cat > min2.in << EOF
 polyA-polyT 10-mer: initial minimization solvent + ions
@@ -32,8 +30,7 @@ polyA-polyT 10-mer: initial minimization solvent + ions
  /
 EOF
 
-pmemd -O -i min2.in -o min2.out -p ${TLEAPDIR}/complex_solvated.prmtop -c min1.rst -r min2.rst -inf min2.mdinfo -ref min1.rst
-
+pmemd.cuda -O -i min2.in -o min2.out -p ${TLEAPDIR}/complex_solvated.prmtop -c min1.rst -r min2.rst -inf min2.mdinfo -ref min1.rst
 
 #cp complex_solvated.prmtop min2.rst system_hmass.top trial_1_boltz
 #cp complex_solvated.prmtop min2.rst system_hmass.top trial_2_boltz

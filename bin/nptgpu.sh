@@ -2,9 +2,9 @@
 
 TLEAPDIR=$1
 HEATDIR=$2
-TEMP=298.15
+TEMP=$3
 
-cat > npt1_cpu.in << EOF
+cat > npt1.in << EOF
 1ns of equilibration
  &cntrl
    imin=0, irest=1, ntx=5,
@@ -18,5 +18,5 @@ cat > npt1_cpu.in << EOF
  /
 EOF
 
-pmemd.cuda -O -i npt1_cpu.in -o npt1_cpu.out -p $TLEAPDIR/complex_solvated.prmtop -c $HEATDIR/heat.rst -r npt_cpu.rst -inf npt_cpu.mdinfo -ref $HEATDIR/heat.rst
+pmemd.cuda -O -i npt1.in -o npt1.out -p $TLEAPDIR/complex_solvated.prmtop -c $HEATDIR/heat.rst -r npt.rst -inf npt.mdinfo -ref $HEATDIR/heat.rst
 
