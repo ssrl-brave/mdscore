@@ -6,20 +6,20 @@ LIG=$(realpath $1)
 PROT=$(realpath $2)
 # resired output  rootdir
 trialdir=$3
-# temp of the simulation
+# temp of the simulation Kelvin
 TEMP_K=298.5
-# duration of the simulation
+# duration of the simulation nanoseconds
 DUR_NS=100
 # subdirs will start with this prefix
 pref=mdout
 ###### END  INPUTS #######
-# input Ligand and receptor
 
 # make a trial dir and move there
 mkdir -p $trialdir
 trialdir=$(realpath $trialdir)
 cd $trialdir
 
+# copy ligand and receptor for bookkeeping
 cp $LIG input_ligand.pdb
 cp $PROT input_receptor.pdb
 
@@ -27,13 +27,11 @@ cp $PROT input_receptor.pdb
 # the first arg $1 is the dirname
 # the rest of the args $@ should be the command
 run_step () {
-    # 1. Capture the directory name
     local outdir=$1
     shift # Remove the first argument (directory name) so $@ now holds only the command
     echo "--- Running step in: ${outdir} ---"
     mkdir -p ${outdir}
     outdir=$(realpath $outdir)
-
     cd $outdir
     # after the shift, the command sequence remains
     "$@"
@@ -60,12 +58,12 @@ mindir=$(run_step $pref.min min.sh $tleapdir | tail -n 1)
 # heat system to desired temp
 heatdir=$(run_step $pref.heat heatgpu.sh $tleapdir $mindir $TEMP_K | tail -n 1)
 
-# heat system to desire temp
+# equilibration
 nptdir=$(run_step $pref.npt nptgpu.sh $tleapdir $heatdir $TEMP_K | tail -n 1)
 
 # dynamics simulation
 mddir=$(run_step $pref.md md.sh $tleapdir $nptdir $parmdir $TEMP_K $DUR_NS | tail -n 1)
 
-
 echo Final results written to $mddir
 echo Done.
+
