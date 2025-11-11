@@ -1,14 +1,19 @@
 #!/bin/bash
 
-set -e
-
+######## INPUTS ########
+# input Ligand and receptor
 LIG=$(realpath $1)
 PROT=$(realpath $2)
+# number or character labeling this trial 
 trial=$3
+# temp of the simulation
 TEMP_K=298.5
-DUR_NS=0.5
-#nstep=$4
+# duration of the simulation
+DUR_NS=100
+# subdirs will start with this prefix
 pref=mdout
+###### END  INPUTS #######
+# input Ligand and receptor
 
 # make a trial dir and move there
 trialdir=trial${trial}
