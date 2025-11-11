@@ -66,39 +66,42 @@ run_cmake
 make -j 4 install
 ```
 
-Good luck! If successfuly, this will create an install folder `pmemd24` alongside `pmemd24_src` and there will be a startup file ```pmemd24/amber.sh ``` that is meant to be sourced to set the amber environment.
+Good luck! If successful, this will create an install folder `pmemd24` alongside `pmemd24_src` and there will be a startup file ```pmemd24/amber.sh ``` that is meant to be sourced to set the amber environment.
 
 
 ### Running the MD simulation pipeline
 
-To run the pipeline, simply source your new amber build (assuming you havent already) and setup the ssrl-brave MD env
+To run the pipeline, simply source your new amber build (assuming you havent already) and prepend the `bin` folder odf this repository to your `PATH` variable:
 
 ```
+# load the amber tools and conda env:
 source /path/to/miniforge/etc/profile.d/conda.sh
 conda activate amber
+# load the pmemd24 env:
 source /path/to/pmemd24/amber.sh
+# load the md pipeline env from mdscore:
 export PATH=/path/to/mdscore/bin:$PATH
 ```
 
-The pipeline simply take as input a `ligand.pdb` and `receptor.pdb` file. Prepared are two such files for testing the pipeline:
+The main pipeline script is `do_simuilation.sh` and it simply takes as input a `ligand.pdb` and `receptor.pdb` file. Prepared are two such files for testing purposes:
 
 ```
 wget https://smb.slac.stanford.edu/~dermen/receptor_boltz.pdb
 wget https://smb.slac.stanford.edu/~dermen/boltz_lig_mod.pdb
 ```
 
-(TODO:add required preprocessing steps for the ligand / receptor PDB)
+(TODO:add required preprocessing steps for preparing the ligand / receptor PDB files)
 
 Now, the simulation pipeline can be run using:
 
 ```
-do_simulation.sh ligand.pdb recetor.pdb sim.out.trial1
+do_simulation.sh ligand.pdb recetor.pdb sysAlpha.trial1
 ```
 
-The resulting `sim.out.trial1` folder contains the md simulation trajectory `sim.out.trial1/mdout.md/md/nc`, as well as lots more: 
+The resulting `sysAlpha.trial1` folder contains the md simulation trajectory `sysAlpha.trial1/mdout.md/md.nc`, as well as all of the intermediate input/output files created along the way. Note each major pipeline step produces its own unique output folder: 
 
 ```bash
-sim.out.trial1
+sysAlpha.trial1
 ├── ligand.pdb
 ├── mdout.antechamber
 │   ├── ANTECHAMBER_AC.AC
